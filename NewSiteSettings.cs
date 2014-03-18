@@ -1,24 +1,26 @@
-﻿namespace Constellation.Sitecore.SiteManagement
+﻿// -----------------------------------------------------------------------------
+// <copyright file="NewSiteSettings.cs" company="genuine">
+//      Copyright (c) @SitecoreRick. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------------
+namespace Constellation.Sitecore.SiteManagement
 {
+    using System.Collections.Generic;
+    using System.Text;
     using global::Sitecore.Configuration;
     using global::Sitecore.Data;
     using global::Sitecore.Globalization;
-    using System.Collections.Generic;
-    using System.Text;
 
     /// <summary>
     /// The new site settings.
     /// </summary>
     public class NewSiteSettings
     {
-        #region Fields
         /// <summary>
         /// The default language id.
         /// </summary>
         private ID defaultLanguageID;
-        #endregion
 
-        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="NewSiteSettings"/> class.
         /// </summary>
@@ -44,9 +46,7 @@
             this.AdditionalLanguages = additionalLanguages;
             this.DefaultLanguageID = defaultLanguageID;
         }
-        #endregion
 
-        #region Properties
         /// <summary>
         /// Gets or sets the site name.
         /// </summary>
@@ -97,9 +97,7 @@
                 this.DefaultLanguage = defaultLanguage;
             }
         }
-        #endregion
 
-        #region Methods
         /// <summary>
         /// Returns a diagnostic representation of the values in this instance.
         /// </summary>
@@ -116,6 +114,5 @@
 
             return builder.ToString();
         }
-        #endregion
     }
 }

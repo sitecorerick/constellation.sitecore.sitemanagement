@@ -1,4 +1,9 @@
-﻿namespace Constellation.Sitecore.SiteManagement
+﻿// -----------------------------------------------------------------------------
+// <copyright file="HostnameSettings.cs" company="genuine">
+//      Copyright (c) @SitecoreRick. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------------
+namespace Constellation.Sitecore.SiteManagement
 {
     using System.Text;
 

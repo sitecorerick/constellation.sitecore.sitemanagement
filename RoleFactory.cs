@@ -1,10 +1,16 @@
-﻿namespace Constellation.Sitecore.SiteManagement
+﻿// -----------------------------------------------------------------------------
+// <copyright file="RoleFactory.cs" company="genuine">
+//      Copyright (c) @SitecoreRick. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------------
+namespace Constellation.Sitecore.SiteManagement
 {
-    using global::Sitecore.Security.Accounts;
-    using global::Sitecore.StringExtensions;
     using System;
     using System.Collections.Generic;
     using System.Web.Security;
+    using Constellation.Sitecore.SiteManagement.Configuration;
+    using global::Sitecore.Security.Accounts;
+    using global::Sitecore.StringExtensions;
 
     /// <summary>
     /// Handles the creation or removal of roles for Site Manager.
@@ -94,7 +100,7 @@
         /// </summary>
         public static void EnsureSystemRoles()
         {
-            var settings = Configuration.Settings.TransSiteRoles;
+            var settings = SiteManagementConfigurationSection.Instance.TransSiteRoles;
 
             foreach (RoleConfigurationElement setting in settings)
             {
@@ -148,9 +154,9 @@
         /// <param name="transaction">The transaction.</param>
         public static void RemoveSiteSpecificRoles(ISiteManagerTransaction transaction)
         {
-            var folderSettings = Configuration.Settings.SiteBlueprints[transaction.SiteBlueprintName].SystemFolders;
+            var folderSettings = SiteManagementConfigurationSection.Instance.SiteBlueprints[transaction.SiteBlueprintName].SystemFolders;
 
-            foreach (FolderConfigurationElement folderSetting in folderSettings)
+            foreach (SystemFolderConfigurationElement folderSetting in folderSettings)
             {
                 var siteRoleSettings = folderSetting.SiteRoles;
 

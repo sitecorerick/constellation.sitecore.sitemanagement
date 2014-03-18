@@ -40,34 +40,50 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccessRightConfigurationCollection.cs" />
-    <Compile Include="AccessRightConfigurationElement.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="FolderConfigurationCollection.cs" />
-    <Compile Include="FolderConfigurationElement.cs" />
+    <Compile Include="App_Config\Constellation\ItemAccessRight.cs" />
+    <Compile Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+    </Compile>
     <Compile Include="FolderSecurityManager.cs" />
     <Compile Include="HostnameSettings.cs" />
     <Compile Include="ISiteManagerTransaction.cs" />
     <Compile Include="NewSiteSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoleConfigurationCollection.cs" />
-    <Compile Include="RoleConfigurationElement.cs" />
     <Compile Include="RoleFactory.cs" />
-    <Compile Include="SiteBlueprintConfigurationCollection.cs" />
-    <Compile Include="SiteBlueprintConfigurationElement.cs" />
     <Compile Include="SiteCreationResults.cs" />
     <Compile Include="SiteCreationTransaction.cs" />
     <Compile Include="SiteManager.cs" />
     <Compile Include="SiteRemovalTransaction.cs" />
-    <Compile Include="TargetSystemConfigurationCollection.cs" />
-    <Compile Include="TargetSystemConfigurationElement.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App_Config\Constellation.Config.Example\SiteManagement.config" />
+    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd">
+      <Generator>CsdFileGenerator</Generator>
+      <LastGenOutput>SiteManagementConfigurationSectionDesigner.csd.cs</LastGenOutput>
+    </None>
+    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.config">
+      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+    </None>
+    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.diagram">
+      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+    </None>
+    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.xsd">
+      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Constellation.Sitecore.SiteManagement.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Constellation.Sitecore.SiteManagement.Instructions.txt" />
     <Content Include="Constellation.Sitecore.SiteManagement.License.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Config\Schemas\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

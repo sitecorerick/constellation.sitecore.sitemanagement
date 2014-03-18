@@ -1,35 +1,26 @@
-﻿using System.Reflection;
+﻿// -----------------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="genuine">
+//      Copyright (c) @SitecoreRick. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------------
+using System.Reflection;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("Constellation.Sitecore.SiteManagement")]
-[assembly: AssemblyDescription("A site requisition tool for Sitecore")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Richard J. Cabral")]
-[assembly: AssemblyProduct("Constellation.Sitecore.SiteManagement")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("095f06f8-c8b9-4f45-a7e9-10888305e17e")]
+[assembly: AssemblyTitle("Constellation Sitecore SiteManagement")]
+[assembly: AssemblyDescription("A site requisition tool for Sitecore")]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyCompany("Genuine Interactive")]
+[assembly: AssemblyProduct("Sitecore SiteManagement Tool")]
+[assembly: AssemblyCopyright("Genuine Interactive")]
+[assembly: AssemblyTrademark("@SitecoreRick")]
+[assembly: AssemblyCulture("")]
+[assembly: ComVisible(false)]
 [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyFileVersion("1.0.*")]
+[assembly: AssemblyFileVersion("1.0.0")]
+
+#if DEBUG
+[assembly: AssemblyConfiguration("DEBUG")]
+#else
+[assembly: AssemblyConfiguration("RELEASE")]
+#endif
