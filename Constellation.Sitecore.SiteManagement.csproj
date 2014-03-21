@@ -38,6 +38,13 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="Telerik.Web.UI">
+      <HintPath>_Binaries\Sitecore\Telerik.Web.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Web.UI.Skins">
+      <HintPath>_Binaries\Sitecore\Telerik.Web.UI.Skins.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Config\Constellation\ItemAccessRight.cs" />
@@ -52,6 +59,30 @@
     <Compile Include="NewSiteSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleFactory.cs" />
+    <Compile Include="sitecore\admin\ManageSites\AddSite.aspx.cs">
+      <DependentUpon>AddSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sitecore\admin\ManageSites\AddSite.aspx.designer.cs">
+      <DependentUpon>AddSite.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sitecore\admin\ManageSites\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sitecore\admin\ManageSites\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sitecore\admin\ManageSites\RemoveSite.aspx.cs">
+      <DependentUpon>RemoveSite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="sitecore\admin\ManageSites\RemoveSite.aspx.designer.cs">
+      <DependentUpon>RemoveSite.aspx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="sitecore\admin\ManageSites\SiteManagementBasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="SiteCreationResults.cs" />
     <Compile Include="SiteCreationTransaction.cs" />
     <Compile Include="SiteManager.cs" />
@@ -78,6 +109,11 @@
   <ItemGroup>
     <Content Include="Constellation.Sitecore.SiteManagement.Instructions.txt" />
     <Content Include="Constellation.Sitecore.SiteManagement.License.txt" />
+    <Content Include="sitecore\admin\ManageSites\AddSite.aspx" />
+    <Content Include="sitecore\admin\ManageSites\Default.aspx" />
+    <Content Include="sitecore\admin\ManageSites\RemoveSite.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Config\Schemas\" />
