@@ -1,0 +1,24 @@
+﻿Instructions
+============
+
+Purpose
+-------
+To allow developers to quickly requisition new Sitecore sites based on existing installed information architecture.
+
+Prep
+----
+1. Create the required Templates for your site in Sitecore.
+2. Create the required presentation details and assign to Standard Values.
+3. It is recommended to create a Branch Template that represents your "stock" site map, for use when requisitioning a site.
+4. Ensure any "system" prerequisite folders are created before trying to create a site using Site Manager.
+5. Create a Site Blueprint in the web config that tells Sitecore what kind of structures to create and what security they
+require when requisitioning a new site. Use the provided example configuration file to get started.
+
+Be sure to include the security settings for any created objects.
+
+If you are using Visual Studio Build Targets (recommended), be sure to include site configuration node settings for each build target in your environment.
+Site Manager will provide you with cut & paste Sitecore Site node elements as part of its build process.
+
+6. Log into Sitecore
+7. Run the SiteManager from the browser to create a site based on the blueprint.
+http:/hostname/sitecore/admin/SiteManager

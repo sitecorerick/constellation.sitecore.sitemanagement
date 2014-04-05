@@ -7,7 +7,7 @@
     <ProjectGuid>{AACA3F40-88CE-4CB2-BC1B-4C8DFD0C53F9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Constellation.Sitecore.SiteManagement</RootNamespace>
+    <RootNamespace>Constellation.Sitecore</RootNamespace>
     <AssemblyName>Constellation.Sitecore.SiteManagement</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,24 +41,22 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="Telerik.Web.UI">
       <HintPath>_Binaries\Sitecore\Telerik.Web.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Web.UI.Skins">
-      <HintPath>_Binaries\Sitecore\Telerik.Web.UI.Skins.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Config\Constellation\ItemAccessRight.cs" />
-    <Compile Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.cs">
+    <Compile Include="App_Config\Schemas\Constellation.SiteManagement.csd.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+      <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
     </Compile>
-    <Compile Include="FolderSecurityManager.cs" />
-    <Compile Include="HostnameSettings.cs" />
-    <Compile Include="ISiteManagerTransaction.cs" />
-    <Compile Include="NewSiteSettings.cs" />
+    <Compile Include="App_Config\Schemas\ItemAccessRight.cs" />
+    <Compile Include="SiteManagement\FolderSecurityManager.cs" />
+    <Compile Include="SiteManagement\HostnameSettings.cs" />
+    <Compile Include="SiteManagement\ISiteManagerTransaction.cs" />
+    <Compile Include="SiteManagement\NewSiteSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoleFactory.cs" />
+    <Compile Include="SiteManagement\RoleFactory.cs" />
     <Compile Include="sitecore\admin\ManageSites\AddSite.aspx.cs">
       <DependentUpon>AddSite.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -83,41 +81,38 @@
     <Compile Include="sitecore\admin\ManageSites\SiteManagementBasePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SiteCreationResults.cs" />
-    <Compile Include="SiteCreationTransaction.cs" />
-    <Compile Include="SiteManager.cs" />
-    <Compile Include="SiteRemovalTransaction.cs" />
+    <Compile Include="SiteManagement\SiteCreationResults.cs" />
+    <Compile Include="SiteManagement\SiteCreationTransaction.cs" />
+    <Compile Include="SiteManagement\SiteManager.cs" />
+    <Compile Include="SiteManagement\SiteRemovalTransaction.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Config\Constellation.Config.Example\SiteManagement.config" />
-    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd">
+    <Content Include="App_Config\Constellation.SiteManagement.config.Example" />
+    <None Include="App_Config\Schemas\Constellation.SiteManagement.csd">
       <Generator>CsdFileGenerator</Generator>
-      <LastGenOutput>SiteManagementConfigurationSectionDesigner.csd.cs</LastGenOutput>
+      <LastGenOutput>Constellation.SiteManagement.csd.cs</LastGenOutput>
     </None>
-    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.config">
-      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+    <None Include="App_Config\Schemas\Constellation.SiteManagement.csd.config">
+      <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
     </None>
-    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.diagram">
-      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
-    </None>
-    <None Include="App_Config\Constellation\SiteManagementConfigurationSectionDesigner.csd.xsd">
-      <DependentUpon>SiteManagementConfigurationSectionDesigner.csd</DependentUpon>
+    <Content Include="App_Config\Schemas\Constellation.SiteManagement.csd.xsd">
+      <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
       <SubType>Designer</SubType>
-    </None>
+    </Content>
     <None Include="Constellation.Sitecore.SiteManagement.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Constellation.Sitecore.SiteManagement.Instructions.txt" />
-    <Content Include="Constellation.Sitecore.SiteManagement.License.txt" />
-    <Content Include="sitecore\admin\ManageSites\AddSite.aspx" />
+    <Content Include="Instructions\Constellation.Sitecore.SiteManagement.Instructions.txt" />
+    <Content Include="License\Constellation.Sitecore.SiteManagement.License.txt" />
+    <Content Include="sitecore\admin\ManageSites\AddSite.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="sitecore\admin\ManageSites\Default.aspx" />
     <Content Include="sitecore\admin\ManageSites\RemoveSite.aspx">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Config\Schemas\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

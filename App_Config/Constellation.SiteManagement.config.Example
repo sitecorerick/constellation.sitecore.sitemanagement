@@ -1,0 +1,113 @@
+﻿<?xml version="1.0"?>
+<configuration>
+	<!-- Place this section in your Web.Config
+	<configSections>
+		<sectionGroup name="Constellation" type="System.Configuration.ConfigurationSectionGroup, System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+			<section name="siteManagement" type="Constellation.Sitecore.SiteManagement.SiteManagementConfiguration, Constellation.Sitecore.SiteManagement, Version=1.0.*, Culture=neutral, PublicKeyToken=null"/>
+		</sectionGroup>
+	</configSections>
+	<Constellation xmlns="urn:Constellation.Sitecore">
+		<siteManagement configSource="App_Config\Constellation.SiteManagement.config" />
+	</Constellation>
+	end Web.Config section -->
+
+	<Constellation xmlns="urn:Constellation.Sitecore">
+		<siteManagement>
+			<transSiteRoles>
+				<add roleName="Site Author" memberOfTheseRoles="Sitecore Client Authoring" />
+				<add roleName="Site Administrator" memberOfTheseRoles="Site Author, Sitecore Client Publishing" />
+				<add roleName="News Author" memberOfTheseRoles="Sitecore Client Authoring" />
+				<add roleName="Workflow Author" />
+				<add roleName="Workflow Reviewer" />
+			</transSiteRoles>
+			<siteBlueprints>
+				<siteBlueprint name="SomeBlueprintName" siteRootMask="/sitecore/content/sites/$blueprint/$site" >
+					<siteFolders>
+						<add path="/sitecore/content/Sites" addSubFolderForBlueprint="true" addSubFolderForSite="true" subFolderTemplateID="A87A00B1-E6DB-45AB-8B54-636FEC3B5523" markProtected="true">
+							<siteSpecificRoles>
+								<add roleName="$blueprint $site Author" memberOfTheseRoles="Site Author">
+									<accessRights>
+										<add accessRight="Read" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Write" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Create" propagationType="Descendants" accessPermission="Allow"  />
+									</accessRights>
+								</add>
+							</siteSpecificRoles>
+						</add>
+						<add path="/sitecore/content/News" addSubFolderForBlueprint="false" addSubFolderForSite="false" subFolderTemplateID="A87A00B1-E6DB-45AB-8B54-636FEC3B5523" markProtected="true">
+							<siteSpecificRoles>
+								<add roleName="$blueprint $site News Author" memberOfTheseRoles="News Author">
+									<accessRights>
+										<add accessRight="Read" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Write" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Create" propagationType="Descendants" accessPermission="Allow"  />
+									</accessRights>
+								</add>
+							</siteSpecificRoles>
+						</add>
+						<add path="/sitecore/media library/images" addSubFolderForBlueprint="false" addSubFolderForSite="true" subFolderTemplateID="{FE5DD826-48C6-436D-B87A-7C4210C7413B}" markProtected="true">
+							<siteSpecificRoles>
+								<add roleName="$blueprint $site Author">
+									<accessRights>
+										<add accessRight="Read" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Write" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Create" propagationType="Descendants" accessPermission="Allow"  />
+									</accessRights>
+								</add>
+								<add roleName="$blueprint $site News Author">
+									<accessRights>
+										<add accessRight="Read" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Write" propagationType="Descendants" accessPermission="Allow" />
+										<add accessRight="Create" propagationType="Descendants" accessPermission="Allow"  />
+									</accessRights>
+								</add>
+							</siteSpecificRoles>
+						</add>
+					</siteFolders>
+				</siteBlueprint>
+			</siteBlueprints>
+			<targetSystems includeFormsRoot="true" physicalFolder="/" startItem="/home" database="web" domain="extranet" loginPage="/login.aspx">
+				<add systemName="local"
+					 hostNameMask="$site.local"
+					 allowDebug="true"
+					 cacheHtml="true"
+					 htmlCacheSize="50MB"
+					 enablePreview="true"
+					 enableWebEdit="true"
+					 enableDebugger="true"
+					 disableClientData="false"
+		/>
+				<add systemName="continuousintegration"
+					 hostNameMask="$site.continuousintegrationserver"
+					 allowDebug="true"
+					 cacheHtml="true"
+					 htmlCacheSize="50MB"
+					 enablePreview="true"
+					 enableWebEdit="true"
+					 enableDebugger="true"
+					 disableClientData="false"
+		/>
+				<add systemName="authoring"
+					 hostNameMask="authoring.$site.clientname.com"
+					 allowDebug="true"
+					 cacheHtml="true"
+					 htmlCacheSize="50MB"
+					 enablePreview="true"
+					 enableWebEdit="true"
+					 enableDebugger="true"
+					 disableClientData="false"
+		/>
+				<add systemName="delivery"
+					 hostNameMask="www.$site.clientname.com"
+					 allowDebug="false"
+					 cacheHtml="false"
+					 htmlCacheSize="50MB"
+					 enablePreview="false"
+					 enableWebEdit="false"
+					 enableDebugger="false"
+					 disableClientData="true"
+		/>
+			</targetSystems>
+		</siteManagement>
+	</Constellation>
+</configuration>
