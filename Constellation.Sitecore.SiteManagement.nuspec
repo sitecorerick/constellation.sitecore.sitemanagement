@@ -4,7 +4,7 @@
 	<id>$id$</id>
 	<version>$version$</version>
 	<title>$title$</title>
-	<authors>Richard J. Cabral, Jimbo Baltikauskas</authors>
+	<authors>Richard J. Cabral, Ed Lane, Jimbo Baltikauskas</authors>
 	<owners>Richard J. Cabral</owners>
 	<projectUrl>https://github.com/sitecorerick/constellation.sitecore.sitemanagement</projectUrl>
 	<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,7 +16,7 @@
 		
 		The system is meant to be used in development, and includes the generation of site configuration nodes.
 	</description>
-	<releaseNotes>Initial NuGet release.</releaseNotes>
+	<releaseNotes>Constellation v1.5 release.</releaseNotes>
 	<copyright>Copyright 2014</copyright>
 	<tags>Sitecore</tags>
   </metadata>
