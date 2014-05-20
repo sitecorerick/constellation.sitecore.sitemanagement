@@ -1,14 +1,16 @@
 ﻿namespace Constellation.Sitecore.SiteManagement.UI
 {
-	using global::Sitecore.Configuration;
-	using global::Sitecore.Data;
-	using global::Sitecore.Resources;
-	using global::Sitecore.Web.UI;
 	using System;
 	using System.Collections.Generic;
 	using System.Diagnostics.CodeAnalysis;
 	using System.Linq;
 	using System.Web.UI.WebControls;
+	using global::Sitecore;
+	using global::Sitecore.Configuration;
+	using global::Sitecore.Data;
+	using global::Sitecore.Diagnostics;
+	using global::Sitecore.Resources;
+	using global::Sitecore.Web.UI;
 
 	/// <summary>
 	///     Page for creating new sites.
@@ -33,7 +35,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void btnCancel_OnClick(object sender, EventArgs e)
+		protected void btnCancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			this.Response.Redirect(this.Context.Request.Url.PathAndQuery, false);
 		}
@@ -44,7 +46,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void btnGo_OnClick(object sender, EventArgs e)
+		protected void btnGo_OnClick([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			if (!this.Page.IsValid)
 			{
@@ -60,7 +62,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void cblLanguages_OnSelectedIndexChanged(object sender, EventArgs e)
+		protected void cblLanguages_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			this.ddDefaultLanguage.Items.Clear();
 
@@ -80,7 +82,7 @@
 		/// <param name="source">The source.</param>
 		/// <param name="args">The args.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void cvSiteName_OnServerValidate(object source, ServerValidateEventArgs args)
+		protected void cvSiteName_OnServerValidate([NotNull] object source, [NotNull] ServerValidateEventArgs args)
 		{
 			if (Settings.Sites.Any(s => string.Equals(s.Name, args.Value, StringComparison.OrdinalIgnoreCase)))
 			{
@@ -113,7 +115,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void ddSiteBlueprint_OnSelectedIndexChanged(object sender, EventArgs e)
+		protected void ddSiteBlueprint_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			// We don't need to do anything here yet.
 		}
@@ -124,7 +126,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void ddSiteType_OnSelectedIndexChanged(object sender, EventArgs e)
+		protected void ddSiteType_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			this.pnlVirtualFolder.Visible = false;
 			this.valVirtualFolderName.Enabled = false;
@@ -146,7 +148,7 @@
 		/// <param name="source">The source.</param>
 		/// <param name="args">The args.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void valLanguages_OnServerValidate(object source, ServerValidateEventArgs args)
+		protected void valLanguages_OnServerValidate([NotNull] object source, [NotNull] ServerValidateEventArgs args)
 		{
 			if (this.cblLanguages.Items.Cast<ListItem>().Any(item => item.Selected))
 			{
@@ -162,11 +164,13 @@
 		/// </summary>
 		/// <param name="sender">The source of the event.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-		protected void SiteBlueprintInit(object sender, EventArgs e)
+		protected void SiteBlueprintInit([NotNull] object sender, [NotNull] EventArgs e)
 		{
-			var settings = SiteManagementConfiguration.Instance.SiteBlueprints;
+			var section = SiteManagementConfiguration.GetSection();
 
-			foreach (SiteBlueprint setting in settings)
+			Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+
+			foreach (SiteBlueprint setting in section.SiteBlueprints)
 			{
 				this.ddSiteBlueprint.Items.Add(new ListItem(setting.Name));
 			}
@@ -182,17 +186,17 @@
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-		protected void LanguagesInit(object sender, EventArgs e)
+		protected void LanguagesInit([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			var languages = this.MasterDatabase.SelectItems("/sitecore/system/Languages/*");
 
 			foreach (var lang in languages.OrderBy(l => l.DisplayName))
 			{
 				var listItem = new ListItem
-				{
-					Text = string.Format("<img src=\"{0}\" />{1}", Images.GetThemedImageSource(this.MasterDatabase.GetItem(lang.ID).Appearance.Icon, ImageDimension.id16x16), lang.DisplayName),
-					Value = lang.ID.ToString()
-				};
+								   {
+									   Text = string.Format("<img src=\"{0}\" />{1}", Images.GetThemedImageSource(this.MasterDatabase.GetItem(lang.ID).Appearance.Icon, ImageDimension.id16x16), lang.DisplayName),
+									   Value = lang.ID.ToString()
+								   };
 
 				this.cblLanguages.Items.Add(listItem);
 			}

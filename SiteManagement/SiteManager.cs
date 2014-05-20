@@ -1,5 +1,6 @@
 ﻿namespace Constellation.Sitecore.SiteManagement
 {
+	using global::Sitecore;
 	using global::Sitecore.Configuration;
 	using global::Sitecore.Data;
 	using global::Sitecore.Data.Items;
@@ -25,6 +26,7 @@
 		/// <summary>
 		/// Gets the master database.
 		/// </summary>
+		[NotNull]
 		protected Database MasterDatabase
 		{
 			get
@@ -42,7 +44,8 @@
 		/// The <see cref="SiteCreationResults" />.
 		/// </returns>
 		/// <exception cref="System.Exception">Create Site failed.</exception>
-		public SiteCreationResults CreateSite(NewSiteSettings settings)
+		[NotNull]
+		public SiteCreationResults CreateSite([NotNull] NewSiteSettings settings)
 		{
 			var results = new SiteCreationResults();
 			var transaction = new SiteCreationTransaction(settings);
@@ -99,11 +102,15 @@
 		/// The <see cref="SiteRemovalTransaction" />.
 		/// </returns>
 		/// <exception cref="System.Exception">Error while removing site.</exception>
-		public SiteRemovalTransaction RemoveSite(string siteBlueprintName, string siteName)
+		[NotNull]
+		public SiteRemovalTransaction RemoveSite([NotNull] string siteBlueprintName, [NotNull] string siteName)
 		{
 			var transaction = new SiteRemovalTransaction(siteBlueprintName, siteName);
 
-			var folderSettings = SiteManagementConfiguration.Instance.SiteBlueprints[siteBlueprintName].SiteFolders;
+			var section = SiteManagementConfiguration.GetSection();
+
+			global::Sitecore.Diagnostics.Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+			var folderSettings = section.SiteBlueprints[siteBlueprintName].SiteFolders;
 
 			transaction.Log.AppendLine("Removing site: " + siteName);
 
@@ -167,6 +174,7 @@
 
 			return transaction;
 		}
+
 		#endregion
 
 		#region Utility Methods
@@ -176,7 +184,7 @@
 		/// <param name="transaction">
 		/// The transaction.
 		/// </param>
-		private static void WriteLogFile(ISiteManagerTransaction transaction)
+		private static void WriteLogFile([NotNull] ISiteManagerTransaction transaction)
 		{
 			var logFolder = GetLogFilePath();
 			var fileName = string.Empty;
@@ -206,10 +214,12 @@
 		/// <returns>
 		/// The <see cref="Path"/>.
 		/// </returns>
+		[NotNull]
 		private static string GetLogFilePath()
 		{
 			return Path.Combine(Settings.DataFolder, "logs", "sitemanager");
 		}
+
 		#endregion
 
 		#region Major Plumbing
@@ -219,9 +229,12 @@
 		/// <param name="settings">
 		/// The settings.
 		/// </param>
-		private void ValidateSystemFolders(NewSiteSettings settings)
+		private void ValidateSystemFolders([NotNull] NewSiteSettings settings)
 		{
-			var folderSettings = SiteManagementConfiguration.Instance.SiteBlueprints[settings.SiteBlueprintName].SiteFolders;
+			var section = SiteManagementConfiguration.GetSection();
+
+			global::Sitecore.Diagnostics.Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+			var folderSettings = section.SiteBlueprints[settings.SiteBlueprintName].SiteFolders;
 
 			foreach (SiteFolder setting in folderSettings)
 			{
@@ -240,9 +253,12 @@
 		/// <param name="transaction">
 		/// The transaction.
 		/// </param>
-		private void CreateSiteFolders(SiteCreationTransaction transaction)
+		private void CreateSiteFolders([NotNull] SiteCreationTransaction transaction)
 		{
-			var folderSettings = SiteManagementConfiguration.Instance.SiteBlueprints[transaction.Settings.SiteBlueprintName].SiteFolders;
+			var section = SiteManagementConfiguration.GetSection();
+
+			global::Sitecore.Diagnostics.Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+			var folderSettings = section.SiteBlueprints[transaction.Settings.SiteBlueprintName].SiteFolders;
 
 			foreach (SiteFolder setting in folderSettings)
 			{
@@ -268,9 +284,16 @@
 						siteFolder = this.CreateItem(siteFolder, setting.SubFolderTemplateID, transaction.SiteName);
 					}
 
-					// Assign Security
-					transaction.Log.AppendLine("	Assigning security...");
-					FolderSecurityManager.SetFolderSecurityForSiteFolder(siteFolder, setting, transaction);
+					if (siteFolder != null)
+					{
+						// Assign Security
+						transaction.Log.AppendLine("	Assigning security...");
+						FolderSecurityManager.SetFolderSecurityForSiteFolder(siteFolder, setting, transaction);
+					}
+					else
+					{
+						transaction.Log.AppendLine("WARNING: Folder not found! SubFolderTemplateID - " + setting.SubFolderTemplateID);
+					}
 				}
 				else
 				{
@@ -281,7 +304,17 @@
 			}
 		}
 
-		private Item CreateItem(Item parent, Guid templateID, string itemName)
+		/// <summary>
+		/// The create item.
+		/// </summary>
+		/// <param name="parent">The parent.</param>
+		/// <param name="templateID">The template id.</param>
+		/// <param name="itemName">The item name.</param>
+		/// <returns>
+		/// The <see cref="Item" />.
+		/// </returns>
+		[NotNull]
+		private Item CreateItem([NotNull] Item parent, Guid templateID, [NotNull] string itemName)
 		{
 			Item output;
 
@@ -289,7 +322,6 @@
 			if (template != null)
 			{
 				output = parent.Add(itemName, template);
-
 			}
 			else
 			{
@@ -309,7 +341,8 @@
 		/// <returns>
 		/// The <see cref="IEnumerable"/>.
 		/// </returns>
-		private IEnumerable<string> GenerateSiteConfigs(SiteCreationTransaction transaction)
+		[NotNull]
+		private IEnumerable<string> GenerateSiteConfigs([NotNull] SiteCreationTransaction transaction)
 		{
 			var siteConfigs = new List<string>();
 			var settings = transaction.Settings;
@@ -318,10 +351,12 @@
 			 * but since this is an XML fragment, it's easier to simply
 			 * use a StringBuilder.
 			 */
+			var section = SiteManagementConfiguration.GetSection();
 
-			var targetSystems = SiteManagementConfiguration.Instance.TargetSystems;
+			global::Sitecore.Diagnostics.Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+			var targetSystems = section.TargetSystems;
 
-			var blueprint = SiteManagementConfiguration.Instance.SiteBlueprints[transaction.SiteBlueprintName];
+			var blueprint = section.SiteBlueprints[transaction.SiteBlueprintName];
 
 			Item formsFolder = null;
 			var rootPath = blueprint.SiteRootMask.Replace("$blueprint", transaction.SiteBlueprintName).Replace("$site", transaction.SiteName);
@@ -403,7 +438,8 @@
 		/// <returns>
 		/// The Form Folder <see cref="Item"/>.
 		/// </returns>
-		private Item CreateFormsFolder(string rootPath)
+		[NotNull]
+		private Item CreateFormsFolder([NotNull] string rootPath)
 		{
 			var siteRoot = this.MasterDatabase.GetItem(rootPath);
 
@@ -411,6 +447,7 @@
 			var formFolderTemplate = this.MasterDatabase.GetTemplate(new ID("{C0A68A37-3C0A-4EEB-8F84-76A7DF7C840E}"));
 			return siteRoot.Add("forms", formFolderTemplate);
 		}
+
 		#endregion
 	}
 }

@@ -51,6 +51,7 @@
       <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
     </Compile>
     <Compile Include="App_Config\Schemas\ItemAccessRight.cs" />
+    <Compile Include="App_Config\SiteManagementConfiguration.cs" />
     <Compile Include="SiteManagement\FolderSecurityManager.cs" />
     <Compile Include="SiteManagement\HostnameSettings.cs" />
     <Compile Include="SiteManagement\ISiteManagerTransaction.cs" />

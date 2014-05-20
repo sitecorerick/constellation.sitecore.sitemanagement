@@ -7,6 +7,8 @@ namespace Constellation.Sitecore.SiteManagement
 {
 	using System.Text;
 
+	using global::Sitecore;
+
 	/// <summary>
 	/// The site removal results.
 	/// </summary>
@@ -26,7 +28,7 @@ namespace Constellation.Sitecore.SiteManagement
 		/// <param name="siteName">
 		/// The site name.
 		/// </param>
-		public SiteRemovalTransaction(string siteBlueprintName, string siteName)
+		public SiteRemovalTransaction([NotNull] string siteBlueprintName, [NotNull] string siteName)
 		{
 			this.SiteName = siteName;
 			this.SiteBlueprintName = siteBlueprintName;

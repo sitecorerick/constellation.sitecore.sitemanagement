@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 [assembly: AssemblyVersion("1.5.*")]
-[assembly: AssemblyFileVersion("1.5.*")]
+[assembly: AssemblyFileVersion("1.5.1")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("DEBUG")]

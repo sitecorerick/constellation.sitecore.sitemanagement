@@ -1,5 +1,6 @@
 ﻿namespace Constellation.Sitecore.SiteManagement.UI
 {
+	using global::Sitecore;
 	using global::Sitecore.Configuration;
 	using global::Sitecore.Data;
 	using System;
@@ -18,6 +19,7 @@
 		/// <summary>
 		///     Gets the master database.
 		/// </summary>
+		[NotNull]
 		protected Database MasterDatabase
 		{
 			get

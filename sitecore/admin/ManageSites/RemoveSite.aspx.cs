@@ -1,5 +1,6 @@
 ﻿namespace Constellation.Sitecore.SiteManagement.UI
 {
+	using global::Sitecore;
 	using global::Sitecore.Configuration;
 	using global::Sitecore.Data;
 	using System;
@@ -16,6 +17,7 @@
 		/// <summary>
 		///     Gets or sets the items.
 		/// </summary>
+		[NotNull]
 		public IList<ID> ItemsToBeRemoved
 		{
 			get
@@ -34,6 +36,7 @@
 		/// <summary>
 		///     Gets or sets the site to be removed.
 		/// </summary>
+		[NotNull]
 		public string SiteToBeRemoved
 		{
 			get
@@ -56,11 +59,14 @@
 		/// <returns>
 		/// The <see cref="string" />.
 		/// </returns>
-		protected string ComputeStatus(object item)
+		[NotNull]
+		protected string ComputeStatus([NotNull] object item)
 		{
 			string status = "...<span class=\"label label-important\">MISSING</span>";
 
+			// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (item != null)
+			// ReSharper restore ConditionIsAlwaysTrueOrFalse
 			{
 				status = "...<span class=\"label label-success\">FOUND</span>";
 			}
@@ -74,7 +80,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void btnCancel_OnClick(object sender, EventArgs e)
+		protected void btnCancel_OnClick([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			this.Response.Redirect(this.Context.Request.Url.PathAndQuery, false);
 		}
@@ -85,7 +91,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void btnGo_OnClick(object sender, EventArgs e)
+		protected void btnGo_OnClick([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			var site = Factory.GetSite(this.ddSites.SelectedItem.Text);
 
@@ -105,7 +111,7 @@
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The e.</param>
 		[SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:ElementMustBeginWithUpperCaseLetter", Justification = "Reviewed. Suppression is OK here.")]
-		protected void ddSites_OnSelectedIndexChanged(object sender, EventArgs e)
+		protected void ddSites_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			if (string.IsNullOrEmpty(this.ddSites.SelectedValue))
 			{
@@ -123,7 +129,7 @@
 		/// </summary>
 		/// <param name="sender">The sender.</param>
 		/// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-		protected void SitesInit(object sender, EventArgs e)
+		protected void SitesInit([NotNull] object sender, [NotNull] EventArgs e)
 		{
 			var sites = Factory.GetSiteInfoList().Where(x => !string.IsNullOrWhiteSpace(x.TargetHostName));
 			var list = (DropDownList)sender;

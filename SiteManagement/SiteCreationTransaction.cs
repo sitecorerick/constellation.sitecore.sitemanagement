@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------------
 namespace Constellation.Sitecore.SiteManagement
 {
+	using global::Sitecore;
 	using global::Sitecore.Data.Items;
 	using System.Collections.Generic;
 	using System.Text;
@@ -25,7 +26,7 @@ namespace Constellation.Sitecore.SiteManagement
 		/// <param name="settings">
 		/// The settings.
 		/// </param>
-		public SiteCreationTransaction(NewSiteSettings settings)
+		public SiteCreationTransaction([NotNull] NewSiteSettings settings)
 		{
 			this.Settings = settings;
 			this.Roles = new List<string>();
@@ -46,6 +47,7 @@ namespace Constellation.Sitecore.SiteManagement
 		/// <summary>
 		/// Gets the items created.
 		/// </summary>
+		[NotNull]
 		public IList<Item> Items { get; private set; }
 
 		/// <summary>
@@ -62,11 +64,13 @@ namespace Constellation.Sitecore.SiteManagement
 		/// <summary>
 		/// Gets the roles created.
 		/// </summary>
+		[NotNull]
 		public IList<string> Roles { get; private set; }
 
 		/// <summary>
 		/// Gets the settings.
 		/// </summary>
+		[NotNull]
 		public NewSiteSettings Settings { get; private set; }
 
 		/// <summary>
@@ -98,7 +102,9 @@ namespace Constellation.Sitecore.SiteManagement
 		{
 			this.Log.AppendLine("SiteManagerTransaction beginning rollBack process.");
 
+			// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			if (this.Items != null)
+			// ReSharper restore ConditionIsAlwaysTrueOrFalse
 			{
 				foreach (var item in this.Items)
 				{

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------------
 namespace Constellation.Sitecore.SiteManagement
 {
-
+	using global::Sitecore;
 	using global::Sitecore.Data.Items;
 	using global::Sitecore.Security.AccessControl;
 	using global::Sitecore.SecurityModel;
@@ -29,7 +29,7 @@ namespace Constellation.Sitecore.SiteManagement
 		/// <param name="transaction">
 		/// The transaction.
 		/// </param>
-		public static void SetFolderSecurityForSiteFolder(Item folder, SiteFolder config, ISiteManagerTransaction transaction)
+		public static void SetFolderSecurityForSiteFolder([NotNull] Item folder, [NotNull] SiteFolder config, [NotNull] ISiteManagerTransaction transaction)
 		{
 			var siteRoleSettings = config.SiteRoles;
 

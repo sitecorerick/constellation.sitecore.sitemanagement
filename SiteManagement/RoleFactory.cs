@@ -1,5 +1,7 @@
 ﻿namespace Constellation.Sitecore.SiteManagement
 {
+	using global::Sitecore;
+	using global::Sitecore.Diagnostics;
 	using global::Sitecore.Security.Accounts;
 	using global::Sitecore.StringExtensions;
 	using System;
@@ -20,7 +22,8 @@
 		/// <returns>
 		/// The newly created <see cref="Role" />.
 		/// </returns>
-		public static Role AddOrUpdateRole(string roleName, ISiteManagerTransaction transaction = null, IEnumerable<Role> parentRoles = null)
+		[NotNull]
+		public static Role AddOrUpdateRole([NotNull] string roleName, [NotNull] ISiteManagerTransaction transaction = null, [NotNull] IEnumerable<Role> parentRoles = null)
 		{
 			Role role;
 			if (Role.Exists(roleName))
@@ -61,7 +64,8 @@
 		/// <returns>
 		/// The <see cref="string" />.
 		/// </returns>
-		public static string EnsureSafeRoleName(string roleName)
+		[NotNull]
+		public static string EnsureSafeRoleName([NotNull] string roleName)
 		{
 			var array = roleName.ToCharArray();
 
@@ -77,7 +81,8 @@
 		/// <returns>
 		/// The <see cref="string" />.
 		/// </returns>
-		public static string EnsureFullyQualifiedRoleName(string roleName, string domain = "sitecore")
+		[NotNull]
+		public static string EnsureFullyQualifiedRoleName([NotNull] string roleName, [NotNull] string domain = "sitecore")
 		{
 			var safeName = EnsureSafeRoleName(roleName);
 
@@ -94,7 +99,11 @@
 		/// </summary>
 		public static void EnsureSystemRoles()
 		{
-			var settings = SiteManagementConfiguration.Instance.TransSiteRoles;
+			var section = SiteManagementConfiguration.GetSection();
+
+			Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+
+			var settings = section.TransSiteRoles;
 
 			foreach (RoleRule setting in settings)
 			{
@@ -111,7 +120,8 @@
 		/// <returns>
 		/// The parent roles, if they exist.
 		/// </returns>
-		public static IEnumerable<Role> ParseRoleList(string parentRoleAttribute, string siteBlueprintName = null, string siteName = null)
+		[NotNull]
+		public static IEnumerable<Role> ParseRoleList([NotNull] string parentRoleAttribute, [CanBeNull] string siteBlueprintName = null, [CanBeNull] string siteName = null)
 		{
 			var parentRoles = new List<Role>();
 
@@ -123,8 +133,7 @@
 			var parentNames = parentRoleAttribute.Split(',');
 
 			// ReSharper disable LoopCanBeConvertedToQuery
-			foreach (var parentName in parentNames)
-			// ReSharper restore LoopCanBeConvertedToQuery
+			foreach (var parentName in parentNames) // ReSharper restore LoopCanBeConvertedToQuery
 			{
 				if (parentName.IsNullOrEmpty())
 				{
@@ -133,7 +142,9 @@
 
 				var role = AddOrUpdateRole(AssembleRoleName(parentName, siteBlueprintName, siteName));
 
+				// ReSharper disable ConditionIsAlwaysTrueOrFalse
 				if (role != null)
+				// ReSharper restore ConditionIsAlwaysTrueOrFalse
 				{
 					parentRoles.Add(role);
 				}
@@ -146,9 +157,13 @@
 		/// Removes site-specific roles from the system, if they exist.
 		/// </summary>
 		/// <param name="transaction">The transaction.</param>
-		public static void RemoveSiteSpecificRoles(ISiteManagerTransaction transaction)
+		public static void RemoveSiteSpecificRoles([NotNull] ISiteManagerTransaction transaction)
 		{
-			var folderSettings = SiteManagementConfiguration.Instance.SiteBlueprints[transaction.SiteBlueprintName].SiteFolders;
+			var section = SiteManagementConfiguration.GetSection();
+
+			Assert.IsNotNull(section, "The 'Constellation/siteManagement' is missing!");
+
+			var folderSettings = section.SiteBlueprints[transaction.SiteBlueprintName].SiteFolders;
 
 			foreach (SiteFolder folderSetting in folderSettings)
 			{
@@ -182,11 +197,8 @@
 		/// <returns>
 		/// The <see cref="string" />.
 		/// </returns>
-		public static string AssembleRoleName(
-			string roleName,
-			string blueprintName = null,
-			string siteName = null,
-			string domain = "sitecore")
+		[NotNull]
+		public static string AssembleRoleName([NotNull] string roleName, [CanBeNull] string blueprintName = null, [CanBeNull] string siteName = null, [NotNull] string domain = "sitecore")
 		{
 			var output = roleName;
 
