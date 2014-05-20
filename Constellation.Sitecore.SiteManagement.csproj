@@ -95,6 +95,7 @@
     </None>
     <None Include="App_Config\Schemas\Constellation.SiteManagement.csd.config">
       <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <Content Include="App_Config\Schemas\Constellation.SiteManagement.csd.xsd">
       <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>

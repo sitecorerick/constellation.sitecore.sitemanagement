@@ -7,7 +7,7 @@
     the code is regenerated.
 </auto-generated>
 -->
-<xs:schema xmlns:tns="urn:Constellation.Sitecore" elementFormDefault="qualified" targetNamespace="urn:Constellation.Sitecore" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="urn:Constellation.Sitecore.SiteManagement" elementFormDefault="qualified" targetNamespace="urn:Constellation.Sitecore.SiteManagement" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="Constellation" type="tns:Constellation.Sitecore.ConstellationCT" />
 	<xs:complexType name="Constellation.Sitecore.SiteManagement.SiteManagementConfigurationCT">
 		<xs:choice minOccurs="0" maxOccurs="unbounded">
