@@ -101,6 +101,9 @@
       <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="App_Config\Schemas\Constellation.SiteManagement.csd.diagram">
+      <DependentUpon>Constellation.SiteManagement.csd</DependentUpon>
+    </None>
     <None Include="Constellation.Sitecore.SiteManagement.nuspec" />
   </ItemGroup>
   <ItemGroup>
