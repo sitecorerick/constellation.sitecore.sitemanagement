@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sitecore.Kernel">
-      <HintPath>_Binaries\Sitecore\Sitecore.Kernel.dll</HintPath>
+      <HintPath>..\_Binaries\Sitecore\Sitecore.Kernel.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -40,7 +40,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="Telerik.Web.UI">
-      <HintPath>_Binaries\Sitecore\Telerik.Web.UI.dll</HintPath>
+      <HintPath>..\..\inetpub\wwwroot\MassMutual\Website\bin\Telerik.Web.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

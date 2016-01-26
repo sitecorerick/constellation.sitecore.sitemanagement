@@ -16,7 +16,7 @@
 		
 		The system is meant to be used in development, and includes the generation of site configuration nodes.
 	</description>
-	<releaseNotes>Constellation v1.5 release.</releaseNotes>
+	<releaseNotes>Updated development to VS2013</releaseNotes>
 	<copyright>Copyright 2014</copyright>
 	<tags>Sitecore</tags>
   </metadata>
